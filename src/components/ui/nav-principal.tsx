@@ -1,6 +1,6 @@
 "use client";
 
-import React, { JSX } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { 
   NavigationMenu,
@@ -25,11 +25,11 @@ const navigationItems = [
   },
   {
     title: "Gestión de Entrevistas",
-    href: "/entrevistas",
+    href: "/entrevistas", // ✅ Ajuste para redirigir correctamente
     content: [
       {
         title: "Programar Entrevistas",
-        href: "/entrevistas/programar",
+        href: "/entrevistas", // ✅ Apunta al módulo entrevistas.tsx
         description: "Agendar y gestionar entrevistas"
       }
     ]
@@ -40,7 +40,7 @@ const navigationItems = [
     content: [
       {
         title: "Control de Asistencias",
-        href: "/asistencias/control",
+        href: "/asistencias",
         description: "Gestionar asistencias y registros"
       }
     ]
