@@ -12,7 +12,7 @@ export default function ModelosPage() {
   useEffect(() => {
     const isAuthenticated = localStorage.getItem("auth");
     if (!isAuthenticated) {
-      router.push("/login"); 
+      router.push("/login");
     }
   });
 

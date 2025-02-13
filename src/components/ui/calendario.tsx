@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { format, parseISO } from "date-fns";
+import { useState } from "react";
 
 export function DateRangePicker() {
   const [date, setDate] = useState<{ from?: Date; to?: Date }>({
@@ -21,17 +21,17 @@ export function DateRangePicker() {
         type="date"
         value={date.from ? format(date.from, "yyyy-MM-dd") : ""}
         onChange={(e) => handleDateChange(e, "from")}
-        className="border rounded p-2"
+        className="rounded border p-2"
       />
-      
+
       <span>—</span>
-      
+
       {/*Fecha de Fin */}
       <input
         type="date"
         value={date.to ? format(date.to, "yyyy-MM-dd") : ""}
         onChange={(e) => handleDateChange(e, "to")}
-        className="border rounded p-2"
+        className="rounded border p-2"
       />
     </div>
   );

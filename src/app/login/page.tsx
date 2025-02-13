@@ -45,9 +45,7 @@ export default function Login() {
   return (
     <div className="flex h-screen items-center justify-center bg-gray-100">
       <form className="rounded-lg bg-white p-6 shadow-md" onSubmit={handleSubmit}>
-        <h2 className="mb-4 text-center text-2xl font-bold">
-          {isRegistering ? "Registro" : "Iniciar Sesión"}
-        </h2>
+        <h2 className="mb-4 text-center text-2xl font-bold">{isRegistering ? "Registro" : "Iniciar Sesión"}</h2>
         <input
           type="email"
           placeholder="Correo electrónico"
@@ -65,10 +63,7 @@ export default function Login() {
         <button className="w-full rounded bg-blue-500 p-2 text-white">
           {isRegistering ? "Registrarse" : "Ingresar"}
         </button>
-        <p
-          className="mt-2 cursor-pointer text-center text-blue-500"
-          onClick={() => setIsRegistering(!isRegistering)}
-        >
+        <p className="mt-2 cursor-pointer text-center text-blue-500" onClick={() => setIsRegistering(!isRegistering)}>
           {isRegistering ? "¿Ya tienes cuenta? Inicia sesión" : "¿No tienes cuenta? Regístrate"}
         </p>
       </form>
