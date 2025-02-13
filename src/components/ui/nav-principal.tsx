@@ -18,18 +18,18 @@ const navigationItems = [
     content: [
       {
         title: "Gestión de Modelos",
-        href: "/modelos/gestion",
+        href: "/modelos",
         description: "Administrar modelos y sus características"
       }
     ]
   },
   {
     title: "Gestión de Entrevistas",
-    href: "/entrevistas", // ✅ Ajuste para redirigir correctamente
+    href: "/entrevistas",
     content: [
       {
         title: "Programar Entrevistas",
-        href: "/entrevistas", // ✅ Apunta al módulo entrevistas.tsx
+        href: "/entrevistas",
         description: "Agendar y gestionar entrevistas"
       }
     ]
@@ -45,28 +45,6 @@ const navigationItems = [
       }
     ]
   },
-  {
-    title: "Facturación",
-    href: "/facturacion",
-    content: [
-      {
-        title: "Sistema de Facturación",
-        href: "/facturacion/sistema",
-        description: "Gestionar facturas y pagos"
-      }
-    ]
-  },
-  {
-    title: "Gestión y Reglas",
-    href: "/reglas",
-    content: [
-      {
-        title: "Configuración del Sistema",
-        href: "/reglas/configuracion",
-        description: "Administrar reglas y configuraciones"
-      }
-    ]
-  }
 ];
 
 export function MainNav() {

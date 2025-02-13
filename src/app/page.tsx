@@ -1,23 +1,19 @@
 "use client";
 
-import { MainNav } from "@/components/ui/nav-principal";
-import { DateRangePicker } from "@/components/ui/calendario";
-import { UserTable } from "@/components/ui/Tabla-de-modelos";
-import Quincenas from "@/components/AsistenciaComponents/QuincenaAsistencias";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
-  return (
-    <>
-      {/* Barra de navegación */}
-      <MainNav />
+  const router = useRouter();
 
-      {/* Calendario */}
-      <Quincenas onChangeQuincena={(quincena) => console.log(quincena)} />
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem("auth");
+    if (!isAuthenticated) {
+      router.push("/login"); // Redirige al login
+    } else {
+      router.push("/modelos"); // Redirige a la página de modelos si está autenticado
+    }
+  }, []);
 
-      {/* Sección 1 */}
-      <div className="flex h-screen items-center justify-center bg-white">
-        <UserTable />
-      </div>
-    </>
-  );
+  return <div>Cargando...</div>;
 }

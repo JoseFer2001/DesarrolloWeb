@@ -7,7 +7,7 @@ export function NavEntrevista() {
   return (
     <Tabs defaultValue="realizadas" className="w-full">
       <TabsList className="flex gap-4 bg-gray-100 p-2 rounded-xl">
-        <Link href="/entrevistas/page">
+        <Link href="/entrevistas/entrevistas-nuevas">
           <TabsTrigger value="nueva">Nueva Entrevista</TabsTrigger>
         </Link>
         <Link href="/entrevistas/entrevistas-realizadas">
