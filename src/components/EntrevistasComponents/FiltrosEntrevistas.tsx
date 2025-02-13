@@ -1,10 +1,10 @@
-import React from "react";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
+import React from "react";
 
 const FiltrosEntrevistas: React.FC = () => {
   return (
-    <div className="flex flex-wrap gap-4 mb-4 p-4 bg-gray-100 rounded-lg">
+    <div className="mb-4 flex flex-wrap gap-4 rounded-lg bg-gray-100 p-4">
       {/* Filtro por Resultado */}
       <Select>
         <option value="">Filtro: Resultado</option>

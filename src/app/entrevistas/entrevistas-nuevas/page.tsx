@@ -1,8 +1,8 @@
 "use client";
 
-import { MainNav } from "@/components/ui/nav-principal";
-import NavEntrevista from "@/components/EntrevistasComponents/NavEntrevistas";
 import FormEntrevista from "@/components/EntrevistasComponents/FormEntrevistas";
+import NavEntrevista from "@/components/EntrevistasComponents/NavEntrevistas";
+import { MainNav } from "@/components/ui/nav-principal";
 
 const Entrevistas = () => {
   return (

@@ -1,11 +1,17 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import QuincenaAsistencias from "@/components/AsistenciaComponents/QuincenaAsistencias";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import React, { useEffect, useState } from "react";
 
 const TablaAsistencias: React.FC = () => {
-  const [quincena, setQuincena] = useState<{ startDay: number; endDay: number; month: string; year: number; days: { date: number; dayOfWeek: string; }[] } | null>(null);
+  const [quincena, setQuincena] = useState<{
+    startDay: number;
+    endDay: number;
+    month: string;
+    year: number;
+    days: { date: number; dayOfWeek: string }[];
+  } | null>(null);
   const [asistencia, setAsistencia] = useState<{ [key: string]: string }>({});
 
   useEffect(() => {
@@ -30,7 +36,7 @@ const TablaAsistencias: React.FC = () => {
     <div>
       <QuincenaAsistencias onChangeQuincena={setQuincena} />
 
-      <div className="overflow-auto border rounded-md p-4">
+      <div className="overflow-auto rounded-md border p-4">
         {quincena ? (
           <Table>
             <TableHeader>
@@ -52,7 +58,7 @@ const TablaAsistencias: React.FC = () => {
                   return (
                     <TableCell
                       key={dayIndex}
-                      className="text-center border cursor-pointer"
+                      className="cursor-pointer border text-center"
                       onClick={() => toggleAsistencia(dayKey)}
                     >
                       {asistencia[dayKey] || "⬜"}

@@ -6,7 +6,7 @@ import Link from "next/link";
 export function NavEntrevista() {
   return (
     <Tabs defaultValue="realizadas" className="w-full">
-      <TabsList className="flex gap-4 bg-gray-100 p-2 rounded-xl">
+      <TabsList className="flex gap-4 rounded-xl bg-gray-100 p-2">
         <Link href="/entrevistas/entrevistas-nuevas">
           <TabsTrigger value="nueva">Nueva Entrevista</TabsTrigger>
         </Link>

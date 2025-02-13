@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function Login() {
   const router = useRouter();
@@ -39,31 +39,26 @@ export default function Login() {
 
   return (
     <div className="flex h-screen items-center justify-center bg-gray-100">
-      <form className="bg-white p-6 rounded-lg shadow-md" onSubmit={handleSubmit}>
-        <h2 className="text-2xl font-bold mb-4 text-center">
-          {isRegistering ? "Registro" : "Iniciar Sesión"}
-        </h2>
+      <form className="rounded-lg bg-white p-6 shadow-md" onSubmit={handleSubmit}>
+        <h2 className="mb-4 text-center text-2xl font-bold">{isRegistering ? "Registro" : "Iniciar Sesión"}</h2>
         <input
           type="email"
           placeholder="Correo electrónico"
-          className="w-full p-2 border rounded mb-2"
+          className="mb-2 w-full rounded border p-2"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type="password"
           placeholder="Contraseña"
-          className="w-full p-2 border rounded mb-2"
+          className="mb-2 w-full rounded border p-2"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button className="w-full bg-blue-500 text-white p-2 rounded">
+        <button className="w-full rounded bg-blue-500 p-2 text-white">
           {isRegistering ? "Registrarse" : "Ingresar"}
         </button>
-        <p
-          className="mt-2 text-blue-500 text-center cursor-pointer"
-          onClick={() => setIsRegistering(!isRegistering)}
-        >
+        <p className="mt-2 cursor-pointer text-center text-blue-500" onClick={() => setIsRegistering(!isRegistering)}>
           {isRegistering ? "¿Ya tienes cuenta? Inicia sesión" : "¿No tienes cuenta? Regístrate"}
         </p>
       </form>

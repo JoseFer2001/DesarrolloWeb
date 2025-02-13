@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import Quincenas from "@/components/AsistenciaComponents/QuincenaAsistencias";
 import { MainNav } from "@/components/ui/nav-principal";
 import { UserTable } from "@/components/ui/Tabla-de-modelos";
-import Quincenas from "@/components/AsistenciaComponents/QuincenaAsistencias";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function ModelosPage() {
   const router = useRouter();
