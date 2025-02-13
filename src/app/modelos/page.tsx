@@ -12,9 +12,9 @@ export default function ModelosPage() {
   useEffect(() => {
     const isAuthenticated = localStorage.getItem("auth");
     if (!isAuthenticated) {
-      router.push("/login"); // Redirige al login si no está autenticado
+      router.push("/login"); 
     }
-  }, []);
+  });
 
   return (
     <>

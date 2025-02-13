@@ -1,7 +1,7 @@
 "use client";
 
-import { Edit, Search, Trash2 } from "lucide-react";
 import { useState } from "react";
+import { Trash2, Edit, Search } from "lucide-react";
 
 interface User {
   id: number;
@@ -20,12 +20,12 @@ export function UserTable() {
   const [users, setUsers] = useState<User[]>(initialUsers);
   const [search, setSearch] = useState("");
 
-  // Función para eliminar un usuario
+  //eliminar un usuario
   const handleDelete = (id: number) => {
     setUsers(users.filter((user: User) => user.id !== id));
   };
 
-  // Filtrar usuarios según el texto ingresado en el buscador
+  //filtrar usuarios
   const filteredUsers = users.filter(
     (user: User) =>
       user.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -33,16 +33,16 @@ export function UserTable() {
   );
 
   return (
-    <div className="rounded-lg border p-4 shadow-md">
+    <div className="border rounded-lg p-4 shadow-md">
       {/* Barra de búsqueda */}
-      <div className="mb-4 flex items-center space-x-2">
-        <Search className="h-5 w-5 text-gray-500" />
+      <div className="flex items-center space-x-2 mb-4">
+        <Search className="size-5 text-gray-500" />
         <input
           type="text"
           placeholder="Buscar por Nombre o Usuario..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full rounded border p-2"
+          className="border p-2 rounded w-full"
         />
       </div>
 
@@ -65,16 +65,16 @@ export function UserTable() {
                 <td className="p-2">{user.username}</td>
                 <td className="p-2">{user.joinedDate}</td>
                 <td className="p-2 text-center">
-                  <button className="flex items-center text-blue-500 hover:underline">
-                    <Edit className="mr-1 h-4 w-4" /> Modificar
+                  <button className="text-blue-500 hover:underline flex items-center">
+                    <Edit className="size-4 mr-1" /> Modificar
                   </button>
                 </td>
                 <td className="p-2 text-center">
                   <button
-                    className="flex items-center text-red-500 hover:underline"
+                    className="text-red-500 hover:underline flex items-center"
                     onClick={() => handleDelete(user.id)}
                   >
-                    <Trash2 className="mr-1 h-4 w-4" /> Eliminar
+                    <Trash2 className="size-4 mr-1" /> Eliminar
                   </button>
                 </td>
               </tr>

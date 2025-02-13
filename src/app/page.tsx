@@ -13,7 +13,7 @@ export default function Home() {
     } else {
       router.push("/modelos"); // Redirige a la página de modelos si está autenticado
     }
-  }, []);
+  });
 
   return <div>Cargando...</div>;
 }
