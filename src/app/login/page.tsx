@@ -17,7 +17,7 @@ export default function Login() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const users: User[] = JSON.parse(localStorage.getItem("users") || "[]");
+    const users: User[] = JSON.parse(localStorage.getItem("users") ?? "[]");
 
     if (isRegistering) {
       const userExists = users.some((user: User) => user.email === email);
@@ -45,7 +45,7 @@ export default function Login() {
       className="flex h-screen items-center justify-center bg-cover bg-center"
       style={{ backgroundImage: "url('/fondo.jpg')", backgroundColor: "rgba(0, 0, 0, 0.5)", backgroundBlendMode: "overlay" }}
     >
-      <form className="rounded-lg bg-white/10 p-6 shadow-md backdrop-blur-md w-96 border border-white/20 mt-10">
+      <form onSubmit={handleSubmit} className="rounded-lg bg-white/10 p-6 shadow-md backdrop-blur-md w-96 border border-white/20 mt-10">
         <img src="/user-icon.png" alt="User Icon" className="w-16 mx-auto mb-4" />
         <h2 className="mb-4 text-center text-2xl font-bold text-white">
           {isRegistering ? "Registro" : "Iniciar Sesión"}
@@ -53,14 +53,14 @@ export default function Login() {
         <input
           type="email"
           placeholder="Correo electrónico"
-          className="mb-2 w-full rounded border p-2 bg-white/30 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="mb-2 w-full rounded border p-2 bg-white/30 text-white placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type="password"
           placeholder="Contraseña"
-          className="mb-2 w-full rounded border p-2 bg-white/30 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="mb-2 w-full rounded border p-2 bg-white/30 text-white placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />

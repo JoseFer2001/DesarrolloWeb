@@ -1,6 +1,4 @@
 "use client";
-
-import { MainNav } from "@/components/ui/nav-principal";
 import { useRouter } from "next/navigation";
 
 export default function Entrevistas() {
