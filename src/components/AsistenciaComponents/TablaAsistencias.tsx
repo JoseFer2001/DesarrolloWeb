@@ -22,11 +22,10 @@ const TablaAsistencias: React.FC = () => {
     setAsistencia((prev) => {
       const newState = { ...prev };
       if (!newState[dayKey]) {
-        newState[dayKey] = "✅"; // Si está vacío, se marca como falta
+        newState[dayKey] = "✅";
       } else if (newState[dayKey] === "✅") {
-        newState[dayKey] = "❌"; // Si está en falta, se cambia a asistencia
-      } else {
-        delete newState[dayKey]; // Si ya está en asistencia, vuelve a vacío
+        newState[dayKey] = "❌";
+        delete newState[dayKey];
       }
       return newState;
     });

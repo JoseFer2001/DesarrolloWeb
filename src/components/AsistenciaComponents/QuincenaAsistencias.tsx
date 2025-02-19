@@ -52,7 +52,7 @@ const Quincenas: React.FC<QuincenaProps> = ({ onChangeQuincena = () => {} }) => 
     <div className="flex cursor-pointer items-center rounded-md border px-3 py-1 text-sm font-medium">
       <Popover>
         <PopoverTrigger asChild>
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1 classBrillo" >
             <span>{`${quincena.startDay} - ${quincena.endDay} ${quincena.month} ${quincena.year}`}</span>
             <ChevronDown className="size-4" />
           </div>

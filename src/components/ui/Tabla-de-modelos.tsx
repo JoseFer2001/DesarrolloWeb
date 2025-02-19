@@ -33,7 +33,7 @@ export function UserTable() {
   );
 
   return (
-    <div className="rounded-lg border p-4 shadow-md">
+    <div className="size-full rounded-lg border p-4 shadow-md">
       {/* Barra de búsqueda */}
       <div className="mb-4 flex items-center space-x-2">
         <Search className="size-5 text-gray-500" />
