@@ -1,7 +1,6 @@
 "use client";
 
 import FormEntrevista from "@/components/EntrevistasComponents/FormEntrevistas";
-import NavEntrevista from "@/components/EntrevistasComponents/NavEntrevistas";
 import { MainNav } from "@/components/ui/nav-principal";
 
 const Entrevistas = () => {
@@ -17,7 +16,6 @@ const Entrevistas = () => {
       <div className="flex-grow flex flex-col items-center justify-center bg-black bg-opacity-50 py-20">
         <h1 className="text-white text-3xl font-bold mb-6">Nueva Entrevista</h1>
         <div className="w-11/12 lg:w-3/4 bg-white rounded-2xl shadow-2xl p-6">
-          <NavEntrevista />
           <FormEntrevista />
         </div>
       </div>

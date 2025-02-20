@@ -1,6 +1,5 @@
 "use client";
 
-import NavEntrevista from "@/components/EntrevistasComponents/NavEntrevistas";
 import TablaEntrevistas from "@/components/EntrevistasComponents/TablaEntrevistas";
 import { MainNav } from "@/components/ui/nav-principal";
 import { useRouter } from "next/navigation";
@@ -30,7 +29,6 @@ const Entrevistas = () => {
           Nueva Entrevista
         </button>
         <div className="w-11/12 lg:w-3/4 bg-white rounded-2xl shadow-2xl p-6">
-          <NavEntrevista />
           <TablaEntrevistas />
         </div>
       </div>
