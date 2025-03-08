@@ -1,6 +1,6 @@
 "use client";
 
-import FormEntrevista from "@/components/EntrevistasComponents/FormEntrevistas";
+import { FormEntrevista } from "@/components/EntrevistasComponents/FormEntrevistas";
 import { MainNav } from "@/components/ui/nav-principal";
 
 const Entrevistas = () => {

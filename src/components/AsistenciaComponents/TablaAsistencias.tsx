@@ -1,10 +1,17 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { createClient } from "@supabase/supabase-js";
 import QuincenaAsistencias from "@/components/AsistenciaComponents/QuincenaAsistencias";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import React, { useEffect, useState } from "react";
 
-const TablaAsistencias: React.FC = () => {
+// Inicializar Supabase
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
+
+const TablaAsistencias = () => {
   const [quincena, setQuincena] = useState<{
     startDay: number;
     endDay: number;
@@ -12,59 +19,102 @@ const TablaAsistencias: React.FC = () => {
     year: number;
     days: { date: number; dayOfWeek: string }[];
   } | null>(null);
-  const [asistencia, setAsistencia] = useState<{ [key: string]: string }>({});
+  const [modelos, setModelos] = useState<{ id: number; nombre: string }[]>([]);
+  const [asistencia, setAsistencia] = useState<{ [key: string]: boolean }>({});
 
+  // Obtener modelos desde Supabase
   useEffect(() => {
-    console.log("Nueva quincena recibida:", quincena);
+    const fetchModelos = async () => {
+      const { data, error } = await supabase.from("modelos").select("id, nombre");
+      if (error) {
+        console.error("Error obteniendo modelos:", error);
+      } else {
+        setModelos(data);
+      }
+    };
+
+    fetchModelos();
+  }, []);
+
+  // Obtener asistencia existente desde Supabase cuando cambia la quincena
+  useEffect(() => {
+    if (!quincena) return;
+
+    const fetchAsistencias = async () => {
+      const { data, error } = await supabase
+        .from("asistencias")
+        .select("modelo_id, fecha, presente");
+
+      if (error) {
+        console.error("Error obteniendo asistencias:", error);
+      } else {
+        const asistenciaMap: { [key: string]: boolean } = {};
+        data.forEach((registro) => {
+          const key = `${registro.modelo_id}-${registro.fecha}`;
+          asistenciaMap[key] = registro.presente;
+        });
+        setAsistencia(asistenciaMap);
+      }
+    };
+
+    fetchAsistencias();
   }, [quincena]);
 
-  const toggleAsistencia = (dayKey: string) => {
-    setAsistencia((prev) => {
-      const newState = { ...prev };
-      if (!newState[dayKey]) {
-        newState[dayKey] = "✅";
-      } else if (newState[dayKey] === "✅") {
-        newState[dayKey] = "❌";
-        delete newState[dayKey];
-      }
-      return newState;
-    });
+  // Manejar asistencia (marcar o desmarcar)
+  const toggleAsistencia = async (modeloId: number, fecha: string) => {
+    const key = `${modeloId}-${fecha}`;
+    const nuevaAsistencia = !asistencia[key];
+
+    setAsistencia((prev) => ({ ...prev, [key]: nuevaAsistencia }));
+
+    if (nuevaAsistencia) {
+      // Guardar asistencia en Supabase
+      await supabase.from("asistencias").upsert([{ modelo_id: modeloId, fecha, presente: true }]);
+    } else {
+      // Eliminar asistencia en Supabase
+      await supabase.from("asistencias").delete().match({ modelo_id: modeloId, fecha });
+    }
   };
 
   return (
-    <div>
+    <div className="w-full overflow-auto p-4">
       <QuincenaAsistencias onChangeQuincena={setQuincena} />
-
-      <div className="overflow-auto rounded-md border p-4">
+      <div className="overflow-x-auto rounded-md border p-4 bg-white shadow-md">
         {quincena ? (
-          <Table>
+          <Table className="min-w-full">
             <TableHeader>
-              <TableRow>
-                <TableHead className="w-40">Datos iniciales del Modelo</TableHead>
+              <TableRow className="bg-gray-800 text-white">
+                <TableHead className="w-40 text-left p-3">Modelo</TableHead>
                 {quincena.days.map((day, index) => (
-                  <TableHead key={index} className="text-center">
-                    <div>{day.date}</div>
-                    <div className="text-xs text-gray-500">{day.dayOfWeek}</div>
+                  <TableHead key={index} className="text-center p-3">
+                    <div className="text-base font-semibold">{day.date}</div>
+                    <div className="text-xs">{day.dayOfWeek}</div>
                   </TableHead>
                 ))}
               </TableRow>
             </TableHeader>
             <TableBody>
-              <TableRow>
-                <TableCell className="font-medium">Modelo 1, Usuario 1</TableCell>
-                {quincena.days.map((day, dayIndex) => {
-                  const dayKey = `${day.date}-${quincena.month}-${quincena.year}`;
-                  return (
-                    <TableCell
-                      key={dayIndex}
-                      className="cursor-pointer border text-center"
-                      onClick={() => toggleAsistencia(dayKey)}
-                    >
-                      {asistencia[dayKey] || "⬜"}
-                    </TableCell>
-                  );
-                })}
-              </TableRow>
+              {modelos.map((modelo) => (
+                <TableRow key={modelo.id} className="hover:bg-gray-100">
+                  <TableCell className="font-medium p-3">{modelo.nombre}</TableCell>
+                  {quincena.days.map((day, index) => {
+                    const fecha = `${quincena.year}-${(new Date().getMonth() + 1)
+                      .toString()
+                      .padStart(2, "0")}-${day.date.toString().padStart(2, "0")}`;
+                    const key = `${modelo.id}-${fecha}`;
+
+                    return (
+                      <TableCell
+                        key={index}
+                        className="cursor-pointer border text-center p-3"
+                        onClick={() => toggleAsistencia(modelo.id, fecha)}
+                      >
+                        {asistencia[key] ? "✅" : "⬜"}
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
         ) : (
