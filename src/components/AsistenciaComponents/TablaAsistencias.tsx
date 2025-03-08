@@ -19,8 +19,27 @@ const TablaAsistencias = () => {
     year: number;
     days: { date: number; dayOfWeek: string }[];
   } | null>(null);
+
   const [modelos, setModelos] = useState<{ id: number; nombre: string }[]>([]);
   const [asistencia, setAsistencia] = useState<{ [key: string]: boolean }>({});
+
+  // Configurar quincena por defecto al cargar la página
+  useEffect(() => {
+    const fechaActual = new Date();
+    const mes = fechaActual.toLocaleString("es-ES", { month: "long" });
+    const year = fechaActual.getFullYear();
+    const startDay = fechaActual.getDate() <= 15 ? 1 : 16;
+    const endDay = fechaActual.getDate() <= 15 ? 15 : new Date(year, fechaActual.getMonth() + 1, 0).getDate();
+
+    const days = Array.from({ length: endDay - startDay + 1 }, (_, i) => ({
+      date: startDay + i,
+      dayOfWeek: new Date(year, fechaActual.getMonth(), startDay + i).toLocaleString("es-ES", {
+        weekday: "short",
+      }),
+    }));
+
+    setQuincena({ startDay, endDay, month: mes, year, days });
+  }, []);
 
   // Obtener modelos desde Supabase
   useEffect(() => {
@@ -78,7 +97,9 @@ const TablaAsistencias = () => {
 
   return (
     <div className="w-full overflow-auto p-4">
+      {/* Quincena visible pero sin necesidad de clics */}
       <QuincenaAsistencias onChangeQuincena={setQuincena} />
+
       <div className="overflow-x-auto rounded-md border p-4 bg-white shadow-md">
         {quincena ? (
           <Table className="min-w-full">
@@ -118,7 +139,7 @@ const TablaAsistencias = () => {
             </TableBody>
           </Table>
         ) : (
-          <p className="text-center text-gray-500">Selecciona una fecha para ver la asistencia.</p>
+          <p className="text-center text-gray-500">Cargando asistencia...</p>
         )}
       </div>
     </div>
